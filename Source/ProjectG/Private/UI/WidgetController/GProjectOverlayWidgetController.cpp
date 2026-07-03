@@ -9,6 +9,9 @@
 
 void UGProjectOverlayWidgetController::BindCallbacksToDependencies()
 {
+
+	Super::BindCallbacksToDependencies();
+
 	if (!PlayerController)
 	{
 		return;
@@ -16,6 +19,7 @@ void UGProjectOverlayWidgetController::BindCallbacksToDependencies()
 
 	if (AGProjectGameState* GameState = PlayerController->GetWorld()->GetGameState<AGProjectGameState>())
 	{
+		GameState->OnMatchTimeChanged.AddUObject(this, &ThisClass::HandleMatchTimeChanged);
 		GameState->OnPlayerListChanged.AddUObject(this, &ThisClass::HandlePlayerListChanged);
 	}
 }
